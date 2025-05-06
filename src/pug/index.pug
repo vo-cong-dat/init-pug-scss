@@ -8,4 +8,10 @@ html(lang="en")
   body
     h1 Hello Pug and SCSS!
     p This is a sample page.
-    img(src="./icons/icon-demo.svg", alt="", srcset="")
+
+    // Example of using an icon from the SVG sprite:
+    // Replace 'icon-demo' with the ID of the icon you want to use.
+    // The ID is typically the filename of the original SVG without the .svg extension.
+    svg.icon.icon-demo(width="24" height="24") // Adjust width/height as needed, or style with CSS
+      use(xlink:href="images/sprites/sprite.svg#icon-demo")
+

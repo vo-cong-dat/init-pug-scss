@@ -4,6 +4,7 @@ const sass = require('gulp-sass')(require('sass'))
 const autoprefixer = require('gulp-autoprefixer')
 const browserSync = require('browser-sync').create()
 const del = require('del')
+const svgSprite = require('gulp-svg-sprite')
 
 const paths = {
   pug: {
@@ -13,6 +14,10 @@ const paths = {
   scss: {
     src: 'src/scss/**/*.scss',
     dest: 'dist/css/',
+  },
+  icons: {
+    src: 'src/icons/**/*.svg',
+    dest: 'dist/images/sprites/', // Output directory for the sprite
   },
 }
 
@@ -40,7 +45,7 @@ function compileScss() {
 }
 
 function copyIcons() {
-  return gulp.src('src/icons/**/*').pipe(gulp.dest('dist/icons/'))
+  return gulp.src(['src/icons/**/*', '!src/icons/**/*.svg']).pipe(gulp.dest('dist/icons/'))
 }
 
 function copyImages() {
@@ -67,9 +72,31 @@ function clean() {
   return del.deleteAsync(['dist/**', '!dist'])
 }
 
+function compileSvgSprite() {
+  return gulp
+    .src(paths.icons.src)
+    .pipe(
+      svgSprite({
+        mode: {
+          stack: {
+            sprite: '../sprite.svg', // Output sprite filename
+            // Example for creating a SCSS partial with icon dimensions
+            // render: {
+            //   scss: {
+            //     dest: '../../scss/_sprite.scss', // Destination for the SCSS file
+            //   },
+            // },
+          },
+        },
+      })
+    )
+    .pipe(gulp.dest(paths.icons.dest))
+    .pipe(browserSync.stream())
+}
+
 const build = gulp.series(
   clean,
-  gulp.parallel(compilePug, compileScss, copyIcons, copyImages, copyScripts)
+  gulp.parallel(compilePug, compileScss, copyIcons, copyImages, copyScripts, compileSvgSprite)
 )
 const dev = gulp.series(build, serve)
 
@@ -78,7 +105,8 @@ gulp.task('scss', compileScss)
 gulp.task('build', build)
 gulp.task('dev', dev)
 gulp.task('default', dev)
-gulp.task('icons', copyIcons)
+gulp.task('icons', copyIcons) // This task might become redundant or be renamed if all icons go into sprite
+gulp.task('svgsprite', compileSvgSprite)
 gulp.task('images', copyImages)
 gulp.task('scripts', copyScripts)
 gulp.task('clean', clean)

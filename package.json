@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "dev": "gulp",
+    "start": "gulp",
     "build": "gulp build"
   },
   "devDependencies": {

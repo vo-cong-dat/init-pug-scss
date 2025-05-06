@@ -1,0 +1,16 @@
+// Example SCSS
+$primary-color: #3498db;
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  color: $primary-color;
+}
+
+h1 {
+  color: $primary-color;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

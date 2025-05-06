@@ -1,0 +1,26 @@
+{
+  "name": "init-pug-scss",
+  "version": "1.0.0",
+  "description": "A starter project with Pug, SCSS, Gulp, ESLint, Prettier, and Stylelint.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "dev": "gulp",
+    "build": "gulp build"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.29.3",
+    "del": "^8.0.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-pug": "^5.0.0",
+    "gulp-sass": "^5.1.0",
+    "prettier": "^3.2.5",
+    "sass": "^1.69.5",
+    "stylelint": "^16.3.1",
+    "stylelint-config-prettier": "^15.0.0",
+    "stylelint-config-standard": "^36.0.0"
+  }
+}
